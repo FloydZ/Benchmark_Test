@@ -15,7 +15,7 @@ int main (int argc, char *argv[]){
   	{
   		/* Obtain thread number */
   		tid = omp_get_thread_num();
-  		printf("test1 thread = %d\n", tid);
+  		printf("test11 thread = %d\n", tid);
 
   		/* Only master thread does this */
   		if (tid == 0) {
