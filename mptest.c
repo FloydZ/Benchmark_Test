@@ -13,7 +13,6 @@ int main (int argc, char *argv[]){
 	/* Fork a team of threads giving them their own copies of variables */
 	#pragma omp parallel private(nthreads, tid)
   	{
-
   		/* Obtain thread number */
   		tid = omp_get_thread_num();
   		printf("test1 thread = %d\n", tid);
@@ -23,7 +22,5 @@ int main (int argc, char *argv[]){
     			nthreads = omp_get_num_threads();
     			printf("Number of threads = %d\n", nthreads);
    		}
-
   	}  /* All threads join master thread and disband */
-
 }
