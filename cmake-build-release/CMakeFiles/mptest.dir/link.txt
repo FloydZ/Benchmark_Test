@@ -1,1 +1,0 @@
-/usr/bin/clang -O3 -DNDEBUG -march=native -O3 -flto -DNDEBUG -fopenmp CMakeFiles/mptest.dir/mptest.c.o -o mptest  -fopenmp 

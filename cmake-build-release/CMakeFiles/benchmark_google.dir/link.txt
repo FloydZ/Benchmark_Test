@@ -1,1 +1,0 @@
-/usr/bin/clang++ -O3 -DNDEBUG -march=native -O3 -flto -DNDEBUG -fopenmp CMakeFiles/benchmark_google.dir/benchmark_google.cpp.o -o benchmark_google  /usr/local/lib/libbenchmark.a -pthread /usr/lib/librt.so 
