@@ -6,7 +6,7 @@ set(CMAKE_VERBOSE_MAKEFILE ON)
 
 # include directories
 include_directories(".")
-
+find_package(benchmark REQUIRED)
 
 set(DEBUG_FLAGS "-g -DDEBUG -march=native -fopenmp")
 #set(OPTIMIZE_FLAGS "-march=native -O3 -flto -f-")
@@ -25,3 +25,7 @@ set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} ${OPTIMIZE_FLAGS}")
 
 add_executable(mptest mptest.c)
 target_link_libraries(mptest -fopenmp)
+
+# google benchmark
+add_executable(benchmark_google benchmark_google.cpp)
+target_link_libraries(benchmark_google benchmark::benchmark)

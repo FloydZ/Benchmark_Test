@@ -1,0 +1,1 @@
+/usr/bin/clang -g -g -DDEBUG -march=native -fopenmp CMakeFiles/mptest.dir/mptest.c.o -o mptest  -fopenmp 
