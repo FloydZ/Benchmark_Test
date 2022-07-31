@@ -28,3 +28,6 @@ target_link_libraries(mptest -fopenmp)
 
 add_executable(mptestload mptestload.c)
 target_link_libraries(mptestload -fopenmp)
+
+add_executable(gbench gbench.cpp)
+target_link_libraries(gbench -lbenchmark -lpthread -fopenmp)

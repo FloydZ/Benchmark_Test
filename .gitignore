@@ -4,4 +4,7 @@ build/
 Session.vim
 cmake-build-debug/
 cmake-build-release/
-
+mptest
+mpitest
+mptestload
+gbench

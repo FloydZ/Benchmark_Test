@@ -1,6 +1,11 @@
 mptest: mptest.c
-	gcc -o -O3 mptest mptest.c -fopenmp
+	gcc -O3 -o mptest mptest.c -fopenmp
+
 mptestload: mptestload.c
-	gcc -o -O3 mptestload mptestload.c -fopenmp
+	gcc -O3 -o mptestload mptestload.c -fopenmp
+
 mpitest: mpitest.c
-	mpicc -o -O3 mpitest mpitest.c
+	mpicc -O3 -o mpitest mpitest.c
+
+gbench: gbench.cpp
+	g++ -O3 -o gbench gbench.cpp -lbenchmark -lpthread
