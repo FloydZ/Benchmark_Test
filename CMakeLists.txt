@@ -25,3 +25,6 @@ set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} ${OPTIMIZE_FLAGS}")
 
 add_executable(mptest mptest.c)
 target_link_libraries(mptest -fopenmp)
+
+add_executable(mptestload mptestload.c)
+target_link_libraries(mptestload -fopenmp)

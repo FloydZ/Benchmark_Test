@@ -1,65 +1,61 @@
-/******************************************************************************
-* FILE: omp_workshare2.c
-* DESCRIPTION:
-*   OpenMP Example - Sections Work-sharing - C Version
-*   In this example, the OpenMP SECTION directive is used to assign
-*   different array operations to each thread that executes a SECTION. 
-* AUTHOR: Blaise Barney  5/99
-* LAST REVISED: 07/16/07
-******************************************************************************/
 #include <omp.h>
 #include <stdio.h>
 #include <stdlib.h>
-#define N     500000
+#include <time.h>
+#include <stdint.h>
+#define N 100000
 
-int main (int argc, char *argv[]) 
-{
-int i, nthreads, tid;
-float a[N], b[N], c[N], d[N];
+int main(int argc, char *argv[]) {
+  uint64_t i, j, nthreads, tid;
+  double a[N], b[N], c[N], d[N];
+  //const clock_t start = clock();
 
-/* Some initializations */
-for (i=0; i<N; i++) {
-  a[i] = i * 1.5;
-  b[i] = i + 22.35;
-  c[i] = d[i] = 0.0;
+  /* Some initializations */
+  for (i = 0; i < N; i++) {
+    a[i] = i * 2;
+    b[i] = i + 3;
+    c[i] = d[i] = 1;
   }
 
-#pragma omp parallel shared(a,b,c,d,nthreads) private(i,tid)
+#pragma omp parallel shared(a, b, c, d, nthreads) private(i, tid)
   {
-  tid = omp_get_thread_num();
-  if (tid == 0)
-    {
-    nthreads = omp_get_num_threads();
-    printf("Number of threads = %d\n", nthreads);
+    tid = omp_get_thread_num();
+    if (tid == 0) {
+      nthreads = omp_get_num_threads();
     }
-  printf("Thread %d starting...\n",tid);
 
-  #pragma omp sections nowait
+#pragma omp sections nowait
     {
-    #pragma omp section
+#pragma omp section
       {
-      printf("Thread %d doing section 1\n",tid);
-      for (i=0; i<N; i++)
-        {
-        c[i] = a[i] + b[i];
-        printf("Thread %d: c[%d]= %f\n",tid,i,c[i]);
+		for (j = 0; j < N; j++) {
+        for (i = 0; i < N; i++) {
+          c[i] += a[i] + b[i]*d[j];
         }
+        
+		for (i = 0; i < N; i++) {
+          d[i] -= c[i] + b[j]*a[i];
+        }
+		  a[j] += c[j]/d[j];
+		  b[j] -= d[j]/c[j];
+		}
       }
 
-    #pragma omp section
+#pragma omp section
       {
-      printf("Thread %d doing section 2\n",tid);
-      for (i=0; i<N; i++)
-        {
-        d[i] = a[i] * b[i];
-        printf("Thread %d: d[%d]= %f\n",tid,i,d[i]);
+        for (i = 0; i < N; i++) {
+          d[i] -= a[i] * b[i] + c[i];
         }
       }
+    } 
+  }
+	
+  int sum = 0;
+	#pragma omp for
+  for (uint64_t i = 0; i < N; i++) {
+	sum += d[i] - c[i];
+  }
 
-    }  /* end of sections */
-
-    printf("Thread %d done.\n",tid); 
-
-  }  /* end of parallel section */
-
+ // printf("%f\n", (double)(clock()-start));
+  return sum;
 }

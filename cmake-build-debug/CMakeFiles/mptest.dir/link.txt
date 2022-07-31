@@ -1,0 +1,1 @@
+/usr/bin/cc -g -g -DDEBUG -march=native -fopenmp  -O0  CMakeFiles/mptest.dir/mptest.c.o -o mptest  -fopenmp 

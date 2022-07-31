@@ -1,3 +1,4 @@
 *.o
 build/
 .local-history/
+Session.vim
